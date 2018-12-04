@@ -103,9 +103,9 @@ while (record.tryConsume(1)) {
 }
 ```
 
+###### Output:
 
 ```sh
-Output:
 0.502
 1.004
 1.504
