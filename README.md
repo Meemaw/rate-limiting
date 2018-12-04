@@ -87,7 +87,9 @@ If you need custom serialization combined with your custom storage-backend exten
 
 ##### [Scheduling][scheduling]
 
-[Source][scheduling-example-source]
+It turns out rate limiting algorithms are very appropriate for scheduling.
+
+[Scheduling example][scheduling-example-source]
 
 ```java
 EntryBuilder builder = RateLimiting.schedulerBuilder().withAlgorithm(RateLimitAlgorithm.TOKEN_BUCKET);
