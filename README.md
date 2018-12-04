@@ -29,9 +29,7 @@ To perform Rate Limiting implement `RateLimiter` interface or use existing `Rate
 
 ### [Examples][examples]
 
-##### [Simple example][simple-example]
-
-[Source][simple-example-source]
+##### [Simple example][simple-example-source]
 
 ```java
 StorageBackend<String> storageBackend = new InMemoryStorageBackend<>(); // in memory impl.
