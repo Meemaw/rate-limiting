@@ -27,8 +27,11 @@ See [Hazelcast][hazelcast-storage] or [JCache][jcache-storage] example storage i
 
 To perform Rate Limiting implement `RateLimiter` interface or use existing `RateLimiterImpl`. You can implement use your key-value database by implementing `StorageBackend` interface or use the existing [HazelcastStorage][hazelcast-storage] implementation. 
 
+[Examples][examples]
 
-##### Simple example
+##### [Simple example][simple-example]
+
+[Source][simple-example-source]
 
 ```java
 StorageBackend<String> storageBackend = new InMemoryStorageBackend<>(); // in memory impl.
@@ -42,9 +45,38 @@ if (rateLimiter.conformsRateLimits("userIdentifier")) {
 }
 ```
 
-##### Advanced example
+##### Advanced example (javax)
 
+[Full source][rate-limit-filter-source]
 
+```java
+public abstract class RateLimitFilter implements ContainerRequestFilter {
+
+    @Override
+    public void filter(ContainerRequestContext req) throws IOException {
+        try {
+            Optional<String> identifier = getIdentifier(req);
+            if (!identifier.isPresent()) {
+                return;
+            }
+
+            ConsumptionEntry consumptionEntry = getRateLimiter().conformRateLimitsWithConsumption(identifier.get());
+            long retryAfter = TimeUnit.NANOSECONDS.toMillis(consumptionEntry.getNanosUntilConsumption());
+
+            // Inject headers
+            response.addHeader(RATE_LIMIT_REMAINING_HEADER,
+                    String.valueOf(consumptionEntry.getRemainingTokens()));
+            response.addHeader(RETRY_AFTER_HEADER, String.valueOf(retryAfter));
+
+            if (!consumptionEntry.doesConform()) {
+                req.abortWith(createRateLimitResponse(consumptionEntry));
+            }
+        } catch (RateLimiterException ex) {
+        }
+    }
+
+}
+```
 
 
 If you need custom serialization combined with your custom storage-backend extend base classes e.g. `SimpleRefillPolicy`, `AbstractRecord` and `AbstractEntry` and implement required serialization methods.
@@ -56,6 +88,8 @@ If you need custom serialization combined with your custom storage-backend exten
 - `distributedStorageBackendTimeout`: Timeout for rate limiter pass-through mode in ms (default `500ms`). You should decrease this in production to avoid long latencies in case of StorageBackend failures.
 
 ##### [Scheduling][scheduling]
+
+[Source][scheduling-example-source]
 
 ```java
 EntryBuilder builder = RateLimiting.schedulerBuilder().withAlgorithm(RateLimitAlgorithm.TOKEN_BUCKET);
@@ -92,3 +126,8 @@ Output:
 [hazelcast]: https://hazelcast.com/
 [redis]: https://redis.io/
 [token-bucket]: https://en.wikipedia.org/wiki/Token_bucket
+[simple-example]: https://github.com/Meemaw/rate-limiting#simple-example
+[simple-example-source]: https://github.com/Meemaw/rate-limiting/blob/master/ratelimit-examples/src/main/java/io/github/meemaw/ratelimit/examples/SimpleRateLimitingExample.java
+[scheduling-example-source]: https://github.com/Meemaw/rate-limiting/blob/master/ratelimit-examples/src/main/java/io/github/meemaw/ratelimit/examples/SchedulingExample.java
+[examples]: https://github.com/Meemaw/rate-limiting/tree/master/ratelimit-examples/src/main/java/io/github/meemaw/ratelimit/examples
+[rate-limit-filter-source]: https://github.com/Meemaw/rate-limiting/blob/master/ratelimit-examples/src/main/java/io/github/meemaw/ratelimit/examples/RateLimitFilter.java
