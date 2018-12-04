@@ -36,11 +36,11 @@ if (rateLimiter.conformsRateLimits("userIdentifier")) {
 
 If you need custom serialization combined with your custom storage-backend extend base classes e.g. `SimpleRefillPolicy`, `AbstractRecord` and `AbstractEntry` and implement required serialization methods.
 
-``
-
 ##### Configuration
 
 Env variable `ratelimit.map.users.limits`: Hazelcast IMap name (default `ratelimit.map.users.limits)`
+
+
 Env variable `distributedStorageBackendTimeout`: Timeout for rate limiter pass-through mode in ms (default `500ms`). You should decrease this in production to avoid long latencies in case of StorageBackend failures.
 
 
