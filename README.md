@@ -64,5 +64,5 @@ Output:
 ```
 
 
-[hazelcast-storage]: todo
-[jcache-storage]: todo
+[hazelcast-storage]: https://github.com/Meemaw/rate-limiting/blob/master/ratelimit-hazelcast/src/main/java/io/github/meemaw/ratelimit/hazelcast/HazelcastStorage.java
+[jcache-storage]: https://github.com/Meemaw/rate-limiting/blob/master/ratelimit-jcache/src/main/java/io/github/meemaw/ratelimit/jcache/JCacheStorage.java
