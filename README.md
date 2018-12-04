@@ -27,7 +27,7 @@ See [Hazelcast][hazelcast-storage] or [JCache][jcache-storage] example storage i
 
 To perform Rate Limiting implement `RateLimiter` interface or use existing `RateLimiterImpl`. You can implement use your key-value database by implementing `StorageBackend` interface or use the existing [HazelcastStorage][hazelcast-storage] implementation. 
 
-[Examples][examples]
+### [Examples][examples]
 
 ##### [Simple example][simple-example]
 
@@ -45,7 +45,7 @@ if (rateLimiter.conformsRateLimits("userIdentifier")) {
 }
 ```
 
-##### Advanced example (javax)
+##### Advanced rate limit filter example (javax)
 
 [Full source][rate-limit-filter-source]
 
