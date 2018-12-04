@@ -22,6 +22,7 @@ See [Hazelcast][hazelcast-storage] or [JCache][jcache-storage] example storage i
 - Multiple algorithms per user
 - Support for distributed environments
 - Pluggable storage backend system
+- Generic storage key types
 
 ### [Usage][usage]
 
