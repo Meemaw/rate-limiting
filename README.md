@@ -83,7 +83,7 @@ If you need custom serialization combined with your custom storage-backend exten
 
 ##### [Configuration][configuration]
 
-###### Env variblaes
+###### Env variables
 - `ratelimit.map.users.limits`: Hazelcast IMap name (default `ratelimit.map.users.limits)`
 - `distributedStorageBackendTimeout`: Timeout for rate limiter pass-through mode in ms (default `500ms`). You should decrease this in production to avoid long latencies in case of StorageBackend failures.
 
