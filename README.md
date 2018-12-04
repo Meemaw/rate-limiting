@@ -7,7 +7,7 @@ State of the art rate-limiting in Java. Implemented algorithms:
   - Fixed window algorithm
   - Sliding window log algorithm
 
-It is highly customizable and extensible and has no dependencies and assumptions about the environment used - it can be easily extended to be used with any key-value storage backend such as:
+Highly customizable and extensible implementation with assumptions about the environment used - it can be easily extended to be used with any key-value storage backend such as:
   - [Hazelcast][hazelcast]
   - [Redis][redis]
   - ...
