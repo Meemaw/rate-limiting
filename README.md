@@ -2,7 +2,7 @@
 
 ### [About][about]
 
-This project implements "state-of-the-art" algorithms for rate limiting:
+State of the art rate-limiting in Java. Implemented algorithms:
   - [Token bucket algorithm][token-bucket]
   - Fixed window algorithm
   - Sliding window log algorithm
