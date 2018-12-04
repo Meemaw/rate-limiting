@@ -19,8 +19,7 @@ public final class HazelcastStorage implements StorageBackend<String> {
 
     private final IMap<String, List<RateLimitEntry>> rateLimitCache;
 
-    private final static String RATELIMIT_IDENTIFIER = System.getProperty("ratelimit.map.users" +
-            ".limits", "ratelimit.map.users.limits");
+    private final static String RATELIMIT_IDENTIFIER = System.getProperty("ratelimit.map.users.limits", "ratelimit.map.users.limits");
 
     public HazelcastStorage(HazelcastInstance hzInstance) {
         this.rateLimitCache = Objects.requireNonNull(hzInstance).getMap(RATELIMIT_IDENTIFIER);
